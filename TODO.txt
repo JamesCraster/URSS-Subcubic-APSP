@@ -1,0 +1,2 @@
+- install and configure google test and use it to unit test F-W algo
+- install and configure google benchmark https://github.com/google/benchmark
