@@ -10,5 +10,7 @@ A URSS project that aims to implement Ryan Williams' new randomized graph algori
 
 # Dependencies
 
+C++11 is needed, run `g++ -std=c++11`
+
 Google Test/Google Benchmark are required - https://github.com/google/benchmark and https://github.com/google/googletest
 
