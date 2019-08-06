@@ -5,9 +5,10 @@ Useful conference:
 https://simons.berkeley.edu/workshops/schedule/1821
 https://simons.berkeley.edu/talks/fabrizo-grandoni-2015-12-02 (discussion of subcubic equivalence)
 
+Paper on T.M Chan's algorithm:
+http://www.eecs.tufts.edu/~aloupis/comp260/lectures/chan-2008.pdf
 
 Notes:
-
 The first step is to reduce APSP to min-plus matrix multiplication neatly.
 The simplest way to is to min-plus product the adjacency matrix with itself n times (the proof that this provides a solution to APSP is simple by induction)
 Unfortunately, this would take O(n * n^3) = O(n^4), worse that Floyd-Warshall.
