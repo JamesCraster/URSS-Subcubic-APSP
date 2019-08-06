@@ -44,6 +44,10 @@ int main(int argc, char *argv[])
     //Note the distinction between 0 (edge of no length) and +inf (no edge at all)
     vector<vector<int>> A = {{0, 1, 4, inf}, {1, 0, 2, 1}, {4, 2, 0, inf}, {inf, 1, inf, 0}};
     //O(n^4) algorithm for APSP comes from naively applying minPlus n times.
-    print2DVector(minPlus(A, A));
+    vector<vector<int>> B = {{0, inf},
+                             {inf, 0}};
+    vector<vector<int>> C = {{1, 2}, {3, 4}};
+    print2DVector(minPlus(B, C));
+    //print2DVector(minPlus(minPlus(A, A), A));
     return 0;
 }

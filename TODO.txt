@@ -1,2 +1,5 @@
-- install and configure google test and use it to unit test F-W algo
+- install and configure google test and use it to unit test F-W algo DONE
 - install and configure google benchmark https://github.com/google/benchmark
+- understand the reduction from APSP to min-plus product such that there exists T(n) algo for min-plus ==> there exists T(n) algo for APSP, 'subcubic equivalence' -> gather the necessary papers
+https://wiki.epfl.ch/edicpublic/documents/Candidacy%20exam/PR13Charab.pdf
+

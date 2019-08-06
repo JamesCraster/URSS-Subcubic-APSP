@@ -1,0 +1,17 @@
+Useful lecture series: (in particular, lectures 4 and 5):
+https://www.mpi-inf.mpg.de/departments/algorithms-complexity/teaching/summer16/poly-complexity/
+
+Useful conference:
+https://simons.berkeley.edu/workshops/schedule/1821
+https://simons.berkeley.edu/talks/fabrizo-grandoni-2015-12-02 (discussion of subcubic equivalence)
+
+
+Notes:
+
+The first step is to reduce APSP to min-plus matrix multiplication neatly.
+The simplest way to is to min-plus product the adjacency matrix with itself n times (the proof that this provides a solution to APSP is simple by induction)
+Unfortunately, this would take O(n * n^3) = O(n^4), worse that Floyd-Warshall.
+This can be done faster using exponentiation by repeated squaring, requiring log(n) many min-plus products, but again this logarithmic factor presents a barrier to improvement.
+The best method is featured in The Design and Analysis of Computer Algorithms (Aho, Hopcroft, Ullman) sec. 5.9, Corollary 2 and works something like this:
+
+Corollary 2: The time necessary to compute the closure of a matrix of nonnegative reals is of the same order as the time to compute the product of 2 matrices of this type.
