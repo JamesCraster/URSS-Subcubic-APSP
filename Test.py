@@ -1,5 +1,6 @@
 import random
 from MinPlusAPSP import *
+from MPAPSPFastExp import *
 from FloydWarshall import *
 import random
 
@@ -21,10 +22,7 @@ graphs = [generateGraphOfSize(x) for x in range(1, 20)]
 
 passes = True
 for graph in graphs:
-    if(minPlusAPSP(graph) != floydWarshall(graph)[0]):
-        print(graph)
-        print(minPlusAPSP(graph))
-        print(floydWarshall(graph)[0])
+    if(minPlusAPSP(graph) != floydWarshall(graph)[0] or minPlusAPSPFastExp(graph) != minPlusAPSP(graph)):
         passes = False
 
 if passes:

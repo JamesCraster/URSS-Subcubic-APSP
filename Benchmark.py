@@ -1,5 +1,6 @@
 from MinPlusAPSP import *
 from FloydWarshall import *
+from MPAPSPFastExp import *
 import timeit
 import random
 import matplotlib.pyplot as plt
@@ -25,6 +26,9 @@ repeats = 10
 
 plt.plot([timeit.timeit(
     "minPlusAPSP("+str(graphs[x])+")", setup="from MinPlusAPSP import minPlusAPSP", number=repeats) for x in range(1, 20)], label="MinPlusAPSP")
+
+plt.plot([timeit.timeit(
+    "minPlusAPSPFastExp("+str(graphs[x])+")", setup="from MPAPSPFastExp import minPlusAPSPFastExp", number=repeats) for x in range(1, 20)], label="MinPlusAPSP (Exponent. by squaring)")
 
 plt.plot([timeit.timeit(
     "minPlus("+str(graphs[x])+","+str(graphs[x])+")", setup="from MinPlus import minPlus", number=repeats) for x in range(1, 20)], label="One MinPlus")
