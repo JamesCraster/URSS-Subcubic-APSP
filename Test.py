@@ -2,6 +2,7 @@ import random
 from MinPlusAPSP import *
 from MPAPSPFastExp import *
 from FloydWarshall import *
+from FastClosure import *
 import random
 
 
@@ -22,8 +23,12 @@ graphs = [generateGraphOfSize(x) for x in range(1, 20)]
 
 passes = True
 for graph in graphs:
-    if(minPlusAPSP(graph) != floydWarshall(graph)[0] or minPlusAPSPFastExp(graph) != minPlusAPSP(graph)):
+    if(minPlusAPSP(graph) != floydWarshall(graph)[0] or minPlusAPSPFastExp(graph) != minPlusAPSP(graph) or fastClosureAPSP(graph) != minPlusAPSP(graph)):
+        print(graph)
+        print(minPlusAPSP(graph))
+        print(fastClosureAPSP(graph))
         passes = False
+        break
 
 if passes:
     print("All tests pass")

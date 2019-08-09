@@ -12,3 +12,10 @@ def minPlus(A, B):
                 minVal = min(A[i][k] + B[k][j], minVal)
             C[i].append(minVal)
     return C
+
+
+def matrixAdd(A, B):
+    for i in range(0, len(A)):
+        for j in range(0, len(A)):
+            A[i][j] = min(A[i][j], B[i][j])
+    return A
