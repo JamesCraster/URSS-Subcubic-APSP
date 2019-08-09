@@ -22,24 +22,24 @@ def generateGraphOfSize(n):
 
 # Note the distinction between 0 (edge of no length) and +inf (no edge at all) in these algorithms
 repeats = 1
-minrange = 200
-maxrange = 201
-graphs = [generateGraphOfSize(x) for x in range(minrange, maxrange)]
+minrange = 90
+maxrange = 100
+graphs = [generateGraphOfSize(x) for x in range(1, 120)]
 
 # plt.plot([timeit.timeit(
-#   "minPlusAPSP("+str(graphs[x])+")", setup="from MinPlusAPSP import minPlusAPSP", number=repeats) for x in range(1, 20)], label="MinPlusAPSP")
+#   "minPlusAPSP("+str(graphs[x])+")", setup="from MinPlusAPSP import minPlusAPSP", number=repeats) for x in range(minrange, maxrange)], label="MinPlusAPSP")
 
 # plt.plot([timeit.timeit(
-#   "minPlusAPSPFastExp("+str(graphs[x])+")", setup="from MPAPSPFastExp import minPlusAPSPFastExp", number=repeats) for x in range(1, maxrange)], label="MinPlusAPSP (Exponent. by squaring)")
+#   "minPlusAPSPFastExp("+str(graphs[x])+")", setup="from MPAPSPFastExp import minPlusAPSPFastExp", number=repeats) for x in range(minrange, maxrange)], label="MinPlusAPSP (Exponent. by squaring)")
 
 plt.plot([timeit.timeit(
-    "fastClosureAPSP("+str(graphs[x])+")", setup="from FastClosure import fastClosureAPSP", number=repeats) for x in range(0, maxrange-minrange)], label="FastClosureAPSP", marker='v')
-
-# plt.plot([timeit.timeit(
-#   "minPlus("+str(graphs[x])+","+str(graphs[x])+")", setup="from MinPlus import minPlus", number=repeats) for x in range(1, 20)], label="One MinPlus")
+    "fastClosureAPSP("+str(graphs[x])+")", setup="from FastClosure import fastClosureAPSP", number=repeats) for x in range(minrange, maxrange)], label="FastClosureAPSP")
 
 plt.plot([timeit.timeit(
-    "floydWarshall("+str(graphs[x])+")", setup="from FloydWarshall import floydWarshall", number=repeats) for x in range(0, maxrange-minrange)], label="FloydWarshall", marker='v')
+    "minPlus("+str(graphs[x])+","+str(graphs[x])+")", setup="from MinPlus import minPlus", number=repeats) for x in range(minrange, maxrange)], label="One MinPlus")
+
+plt.plot([timeit.timeit(
+    "floydWarshall("+str(graphs[x])+")", setup="from FloydWarshall import floydWarshall", number=repeats) for x in range(minrange, maxrange)], label="FloydWarshall")
 
 plt.legend()
 plt.show()

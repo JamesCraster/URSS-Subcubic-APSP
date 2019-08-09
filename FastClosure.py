@@ -49,7 +49,7 @@ def fastClosure(X):
     A = [r[:h] for r in X[:h]]
     B = [r[h:] for r in X[:h]]
     C = [r[:h] for r in X[h:]]
-    D = [r[:h] for r in X[h:]]
+    D = [r[h:] for r in X[h:]]
     T1 = fastClosure(D)
     T2 = minPlus(B, T1)
     E = fastClosure(matrixAdd(A, minPlus(T2, C)))
