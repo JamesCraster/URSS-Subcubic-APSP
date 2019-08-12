@@ -27,15 +27,14 @@ def TChanMinPlus(A, B):
     d = 2
     Alist = splitMatrixHorizontal(A, d)
     Blist = splitMatrixVertical(B, d)
+    print(Alist)
+    print(Blist)
     C = []
     for i in range(0, len(Alist)):
-        C.append(distanceProduct(Alist[i], Blist[i], len(Alist[0])))
+        C.append(distanceProduct(
+            Alist[i], Blist[i], len(Alist), len(Alist[0])))
     C = reduce(lambda x, y: matrixAdd(x, y), C)
     return C
-
-
-def dominatingPairs(red, blue):
-    pass
 
 
 def dominates(A, B):
@@ -45,7 +44,20 @@ def dominates(A, B):
     return True
 
 
-def distanceProduct(A, B, d):
+def distanceProduct(A, B, n, d):
+    C = [[10000]*n]*n
+    for k in range(0, d):
+        Xk = dominatingPairs([[(A[i][k] - A[i][j])
+                               for j in range(1, d)] for i in range(1, n)], [[(B[j][i] - A[k][i])
+                                                                              for j in range(1, d)] for i in range(1, n)], d)
+
+        print(Xk)
+        for (i, j) in Xk:
+            C[i][j] = A[i][k] + B[k][j]
+    return C
+
+
+def dominatingPairs(A, B, d):
     if len(A) == 1 and len(B) == 1:
         return [(x, y) for x in A for y in B if dominates(y, x)]
     if len(A) == 0 or len(B) == 0:
@@ -54,22 +66,9 @@ def distanceProduct(A, B, d):
         return [(x, y) for x in A for y in B if dominates(y, x)]
     # sort both
     s = sorted(A+B, key=lambda x: x[d-1])
-    # get access to left/right
-    # print(s)
-    left = s[:len(s)//2]
-    right = s[len(s)//2:]
     leftA = [x for x in A if x[d-1] <= s[len(s)//2][d-1]]
     rightA = [x for x in A if x[d-1] > s[len(s)//2][d-1]]
     leftB = [x for x in B if x[d-1] <= s[len(s)//2][d-1]]
     rightB = [x for x in B if x[d-1] > s[len(s)//2][d-1]]
-    # print(left)
-    # print(right)
-    print(leftA)
-    print(leftB)
-    # print(rightA)
-    # print(rightB)
-    # merge calls to smaller cases
-    # recursion error here when run on distanceProduct([[5,6], [3,4]],[[1,2],[7,8]],2)
-    # distanceProduct(leftA, leftB, d) +
-    return distanceProduct(leftA, leftB, d) + distanceProduct(rightA, rightB, d) \
-        + distanceProduct(leftA, rightB, d-1)
+    return dominatingPairs(leftA, leftB, d) + dominatingPairs(rightA, rightB, d) \
+        + dominatingPairs(leftA, rightB, d-1)
