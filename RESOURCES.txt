@@ -8,11 +8,29 @@ https://simons.berkeley.edu/talks/fabrizo-grandoni-2015-12-02 (discussion of sub
 Paper on T.M Chan's algorithm:
 http://www.eecs.tufts.edu/~aloupis/comp260/lectures/chan-2008.pdf
 
-Notes:
+
+T.Chan's algorithm:
+
+The reduction to min-plus matrix multiplication:
+
 The first step is to reduce APSP to min-plus matrix multiplication neatly.
 The simplest way to is to min-plus product the adjacency matrix with itself n times (the proof that this provides a solution to APSP is simple by induction)
 Unfortunately, this would take O(n * n^3) = O(n^4), worse that Floyd-Warshall.
-This can be done faster using exponentiation by repeated squaring, requiring log(n) many min-plus products, but again this logarithmic factor presents a barrier to improvement.
-The best method is featured in The Design and Analysis of Computer Algorithms (Aho, Hopcroft, Ullman) sec. 5.9, Corollary 2 and works something like this:
+This can be done faster using exponentiation by repeated squaring, requiring log(n) many min-plus products, but again this logarithmic factor is too large.
+
+The best method I've found is featured in The Design and Analysis of Computer Algorithms (Aho, Hopcroft, Ullman) sec. 5.9, Corollary 2 and works something like this:
 
 Corollary 2: The time necessary to compute the closure of a matrix of nonnegative reals is of the same order as the time to compute the product of 2 matrices of this type.
+[Aho, A.V., Hopcroft, J.E., Ullman, J.D.: The Design and Analysis of Computer Algorithms. Addison–Wesley, Reading (1974)]
+
+Running time Analysis:
+Experimentally, this method of computing the closure of a matrix is three to four times slower than a single min-plus product, which fits with the theory.
+The recurrence relation: (letting the size of the matrix = 2^k for some k; we pad the matrix until such a k exists.)
+Two closures, six multiplications, two additions (let M(n) be time taken to multiply two matrices of size n.)
+T(1)= 1,
+T(2^k) <= 2T(2^(k-1)) + 6M(2^(k-1)) + 2*(2^(2k-2)) for k > 1
+
+Claim: there exists c such that T(2^k) <= cM(2^k)
+It is proven (theoretically) that such a c exists, provided M(2n) >= 4*M(n), which is clearly true in this case.
+I would expect in practice that c <= 6, because the dimension, n, is at worst doubled (to next power of 2) and then 
+six O(n^3) operations are applied to the four quarters (of dimension one half), so 6 times slower than min-plus product.

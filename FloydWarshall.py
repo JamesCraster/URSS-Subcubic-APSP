@@ -39,10 +39,3 @@ def reconstructPath(u, v, next):
         u = next[u][v]
         path.append(u)
     return path
-
-
-# graph = [[0, 2, inf, inf, 7], [2, 0, 8, 4, inf], [
- #   inf, 8, 0, 2, inf], [inf, 4, 2, 0, inf], [7, inf, inf, inf, 0]]
-#solution = floydWarshall(graph)
-# print(solution[0])
-#print(reconstructPath(0, 3, solution[1]))
