@@ -1,6 +1,7 @@
 import math
 from functools import reduce
 from MinPlus import matrixAdd
+import copy
 from itertools import *
 
 
@@ -39,21 +40,34 @@ def TChanMinPlus(A, B):
 
 def dominates(A, B):
     for i in range(0, len(A)):
-        if(A[i] < B[i]):
+        if(A[i]['value'] < B[i]['value']):
             return False
     return True
+
+
+def removeDuplicates(B):
+    A = copy.deepcopy(B)
+    for i in range(0, len(A)):
+        for j in range(i+1, len(A)):
+            if [A[i][y]['value'] for y in range(0, len(A[i]))] == [A[j][y]['value'] for y in range(0, len(A[i]))]:
+                del A[j]
+    return A
 
 
 def distanceProduct(A, B, n, d):
     C = [[10000]*n]*n
     for k in range(0, d):
-        Xk = dominatingPairs([[(A[i][k] - A[i][j])
-                               for j in range(1, d)] for i in range(1, n)], [[(B[j][i] - A[k][i])
-                                                                              for j in range(1, d)] for i in range(1, n)], d)
+        # Need to recover i and j for which this is true
+        first = [[{"i": i, "value": A[i][k] - A[i][j]}
+                  for j in range(0, d)] for i in range(0, n)]
+        second = [[{"i": i, "value": B[j][i] - A[k][i]}
+                   for j in range(0, d)] for i in range(0, n)]
+        # Need to redefine less than
+        Xk = dominatingPairs(first, second, d)
 
         print(Xk)
-        for (i, j) in Xk:
-            C[i][j] = A[i][k] + B[k][j]
+        # for a in Xk:
+        #   C[a][b] = A[a.i][k] + B[k][b.i]
     return C
 
 
@@ -65,10 +79,13 @@ def dominatingPairs(A, B, d):
     if d == 0:
         return [(x, y) for x in A for y in B if dominates(y, x)]
     # sort both
-    s = sorted(A+B, key=lambda x: x[d-1])
-    leftA = [x for x in A if x[d-1] <= s[len(s)//2][d-1]]
-    rightA = [x for x in A if x[d-1] > s[len(s)//2][d-1]]
-    leftB = [x for x in B if x[d-1] <= s[len(s)//2][d-1]]
-    rightB = [x for x in B if x[d-1] > s[len(s)//2][d-1]]
+    s = sorted(A+B, key=lambda x: x[d-1]['value'])
+    leftA = [x for x in A if x[d-1]['value'] <= s[len(s)//2][d-1]['value']]
+    rightA = [x for x in A if x[d-1]['value'] > s[len(s)//2][d-1]['value']]
+    leftB = [x for x in B if x[d-1]['value'] <= s[len(s)//2][d-1]['value']]
+    rightB = [x for x in B if x[d-1]['value'] > s[len(s)//2][d-1]['value']]
+    print(leftA)
+    print(leftB)
+
     return dominatingPairs(leftA, leftB, d) + dominatingPairs(rightA, rightB, d) \
         + dominatingPairs(leftA, rightB, d-1)
