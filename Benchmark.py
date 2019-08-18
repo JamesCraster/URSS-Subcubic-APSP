@@ -2,6 +2,7 @@ from MinPlusAPSP import *
 from FloydWarshall import *
 from MPAPSPFastExp import *
 from FastClosure import *
+from TChanAPSP import *
 import timeit
 import random
 import matplotlib.pyplot as plt
@@ -22,8 +23,8 @@ def generateGraphOfSize(n):
 
 # Note the distinction between 0 (edge of no length) and +inf (no edge at all) in these algorithms
 repeats = 1
-minrange = 90
-maxrange = 100
+minrange = 0
+maxrange = 10
 graphs = [generateGraphOfSize(x) for x in range(1, 120)]
 
 # plt.plot([timeit.timeit(
@@ -40,6 +41,9 @@ plt.plot([timeit.timeit(
 
 plt.plot([timeit.timeit(
     "floydWarshall("+str(graphs[x])+")", setup="from FloydWarshall import floydWarshall", number=repeats) for x in range(minrange, maxrange)], label="FloydWarshall")
+
+plt.plot([timeit.timeit(
+    "fastClosureAPSP("+str(graphs[x])+")", setup="from TChanAPSP import fastClosureAPSP", number=repeats) for x in range(minrange, maxrange)], label="FloydWarshall")
 
 plt.legend()
 plt.show()
