@@ -38,7 +38,7 @@ def TChanMinPlus(A, B):
 
 def dominates(A, B):
     for i in range(0, len(A)):
-        if(A[i]['value'] < B[i]['value']):
+        if(A[i][1]['val'] < B[i][1]['val']):
             return False
     return True
 
@@ -50,22 +50,26 @@ def distanceProduct(A, B, n, d):
         C += [[10000]*d]
     for k in range(0, d):
         # Need to recover i and j for which this is true
-        first = [[{"i": i, "value": A[i][k] - A[i][j]}
+        first = [[{"i": i, "val": A[i][k] - A[i][j]}
                   for j in range(0, d)] for i in range(0, n)]
-        second = [[{"i": i, "value": B[j][i] - B[k][i]}
+        second = [[{"i": i, "val": B[j][i] - B[k][i]}
                    for j in range(0, d)] for i in range(0, n)]
+        for a in first:
+            for p in range(0, len(a)):
+                a[p] = ('A', a[p])
+        for b in second:
+            for p in range(0, len(b)):
+                b[p] = ('B', b[p])
         Xk = dominatingPairs(first, second, d)
         # extract i and j from Xk
         for a in Xk:
-            i = a[0][0]['i']
-            j = a[1][0]['i']
+            i = a[0][0][1]['i']
+            j = a[1][0][1]['i']
             C[i][j] = A[i][k] + B[k][j]
     return C
 
 
-def dominatingPairs(D, C, d):
-    A = copy.deepcopy(D)
-    B = copy.deepcopy(C)
+def dominatingPairs(A, B, d):
     if len(A) == 1 or len(B) == 1:
         return [(x, y) for x in A for y in B if dominates(y, x)]
     if len(A) == 0 or len(B) == 0:
@@ -76,14 +80,7 @@ def dominatingPairs(D, C, d):
     leftB = []
     rightA = []
     rightB = []
-    # label elements from A and from B
-    for a in A:
-        for k in range(0, len(a)):
-            a[k] = ('A', a[k])
-    for b in B:
-        for k in range(0, len(b)):
-            b[k] = ('B', b[k])
-    S = sorted(A+B, key=lambda x: x[d-1][1]['value'])
+    S = sorted(A+B, key=lambda x: x[d-1][1]['val'])
     # how splitting works: elements equal to the median before the median are put into left
     # elements equal to the median after the median, or at the median itself, are put into right
     for i in range(0, len(S)):
@@ -97,10 +94,6 @@ def dominatingPairs(D, C, d):
                 leftB.append(S[i])
             else:
                 rightB.append(S[i])
-    leftE = [[x[1] for x in a] for a in leftA]
-    leftF = [[x[1] for x in a] for a in leftB]
-    rightE = [[x[1] for x in a] for a in rightA]
-    rightF = [[x[1] for x in a] for a in rightB]
 
-    return dominatingPairs(leftE, leftF, d) + dominatingPairs(rightE, rightF, d) \
-        + dominatingPairs(leftE, rightF, d-1)
+    return dominatingPairs(leftA, leftB, d) + dominatingPairs(rightA, rightB, d) \
+        + dominatingPairs(leftA, rightB, d-1)
