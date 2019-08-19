@@ -53,6 +53,7 @@ def fastClosure(X):
     D = [r[h:] for r in X[h:]]
     T1 = fastClosure(D)
     T2 = TChanMinPlus(B, T1)
+    #print(A, TChanMinPlus(T2, C), T2, C)
     E = fastClosure(matrixAdd(A, TChanMinPlus(T2, C)))
     F = TChanMinPlus(E, T2)
     T3 = TChanMinPlus(T1, C)
