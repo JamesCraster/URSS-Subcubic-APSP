@@ -2,4 +2,10 @@
 https://wiki.epfl.ch/edicpublic/documents/Candidacy%20exam/PR13Charab.pdf DONE
 
 - finish T.Chan's algorithm
+ - get rid of copy.deepcopy()
+ - perform labelling only once
+ - test with non-square matrices
+ - proof of correctness
+ - proof of running time
+ - get full APSP to function
 
