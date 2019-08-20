@@ -1,6 +1,6 @@
 import math
 from functools import reduce
-from MinPlus import matrixAdd
+from MinPlus import *
 import copy
 from itertools import *
 
@@ -8,10 +8,13 @@ from itertools import *
 def splitMatrixHorizontal(A, d):
     out = []
     next = []
-    for x in range(0, math.ceil(len(A)/d)):
+    for x in range(0, math.ceil(len(A[0])/d)):
         next = []
         for y in range(0, len(A)):
-            next.append(A[y][x*d:min(math.ceil(x*d+d), len(A))])
+            row = A[y][x*d:min(math.ceil(x*d+d), len(A))]
+            while(len(row) < d):
+                row.append(1000000)
+            next.append(row)
 
         out.append(next)
     return out
@@ -20,18 +23,22 @@ def splitMatrixHorizontal(A, d):
 def splitMatrixVertical(A, d):
     out = []
     for x in range(0, math.ceil(len(A)/d)):
-        out.append(A[x*d:min(math.ceil(x*d+d), len(A))])
+        next = A[x*d:min(math.ceil(x*d+d), len(A))]
+        while(len(next) < d):
+            next.append([1000000]*len(next[0]))
+        out.append(next)
     return out
 
 
 def TChanMinPlus(A, B):
-    d = 2
+    d = max(math.ceil(0.42 * math.log(len(A))), 1)
     Alist = splitMatrixHorizontal(A, d)
     Blist = splitMatrixVertical(B, d)
     C = []
     for i in range(0, len(Alist)):
+        # problem rests with this line
         C.append(distanceProduct(
-            Alist[i], Blist[i], len(Alist), len(Alist[0])))
+            Alist[i], Blist[i], len(Alist[i]), d))
     C = reduce(lambda x, y: matrixAdd(x, y), C)
     return C
 
@@ -47,7 +54,7 @@ def distanceProduct(A, B, n, d):
     # which (column/row) does k need to iterate over?
     C = []
     for i in range(0, n):
-        C += [[10000]*d]
+        C += [[10000]*n]
     for k in range(0, d):
         # Need to recover i and j for which this is true
         first = [[{"i": i, "val": A[i][k] - A[i][j]}

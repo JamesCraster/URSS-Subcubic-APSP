@@ -30,13 +30,13 @@ for graph in graphs:
         print(fastClosureAPSP(graph))
         passes = False
         break
-    print(graph)
-    if(minPlus(graph, graph) != distanceProduct(graph, graph, len(graph), len(graph))):
-        print(graph)
-        print(minPlusAPSP(graph))
-        print(fastClosureAPSP(graph))
-        passes = False
-        break
+    print('graph: ', graph)
+    if(len(graph) > 1):
+        if(minPlus(graph, graph) != TChanMinPlus(graph, graph)):
+            print(minPlus(graph, graph))
+            print(TChanMinPlus(graph, graph))
+            passes = False
+            break
 
 if passes:
     print("All tests pass")

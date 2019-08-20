@@ -13,8 +13,8 @@ def minVal(A, B, i, j):
 
 def minPlus(A, B):
     C = []
-    for i in range(0, len(A[0])):
-        C.append([minVal(A, B, i, j) for j in range(0, len(B))])
+    for i in range(0, len(A)):
+        C.append([minVal(A, B, i, j) for j in range(0, len(B[0]))])
     return C
 
 

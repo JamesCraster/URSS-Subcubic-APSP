@@ -41,7 +41,7 @@ def unpadMatrix(X, initLength):
     return C
 
 
-def fastClosure(X):
+def fastClosureT(X):
     if(len(X) == 1):
         return [[0]]
     padMatrix(X)
@@ -51,10 +51,9 @@ def fastClosure(X):
     B = [r[h:] for r in X[:h]]
     C = [r[:h] for r in X[h:]]
     D = [r[h:] for r in X[h:]]
-    T1 = fastClosure(D)
+    T1 = fastClosureT(D)
     T2 = TChanMinPlus(B, T1)
-    #print(A, TChanMinPlus(T2, C), T2, C)
-    E = fastClosure(matrixAdd(A, TChanMinPlus(T2, C)))
+    E = fastClosureT(matrixAdd(A, TChanMinPlus(T2, C)))
     F = TChanMinPlus(E, T2)
     T3 = TChanMinPlus(T1, C)
     G = TChanMinPlus(T3, E)
@@ -66,5 +65,5 @@ def fastClosure(X):
     return newMatrixLeft
 
 
-def fastClosureAPSP(A):
-    return unpadMatrix(fastClosure(copy.deepcopy(A)), len(A))
+def fastClosureAPSPT(A):
+    return unpadMatrix(fastClosureT(copy.deepcopy(A)), len(A))
