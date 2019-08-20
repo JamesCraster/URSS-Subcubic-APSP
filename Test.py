@@ -4,6 +4,7 @@ from MPAPSPFastExp import *
 from FloydWarshall import *
 from FastClosure import *
 from TChanMinPlus import *
+from TChanAPSP import *
 import random
 
 
@@ -24,7 +25,7 @@ graphs = [generateGraphOfSize(x) for x in range(1, 20)]
 
 passes = True
 for graph in graphs:
-    if(minPlusAPSP(graph) != floydWarshall(graph)[0] or minPlusAPSPFastExp(graph) != minPlusAPSP(graph) or fastClosureAPSP(graph) != minPlusAPSP(graph)):
+    if(minPlusAPSP(graph) != floydWarshall(graph)[0] or minPlusAPSPFastExp(graph) != minPlusAPSP(graph) or fastClosureAPSP(graph) != minPlusAPSP(graph) or fastClosureAPSPT(graph) != fastClosureAPSP(graph)):
         print(graph)
         print(minPlusAPSP(graph))
         print(fastClosureAPSP(graph))

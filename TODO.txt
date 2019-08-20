@@ -9,5 +9,5 @@ https://wiki.epfl.ch/edicpublic/documents/Candidacy%20exam/PR13Charab.pdf DONE
  - proof of correctness
  - proof of running time
  - get full APSP to function DONE
- - linear median-of-medians algorithm?
+ - linear median-of-medians algorithm? (likely not useful)
 
