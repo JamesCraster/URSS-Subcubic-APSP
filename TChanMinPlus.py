@@ -77,10 +77,8 @@ def distanceProduct(A, B, n, d):
 
 
 def dominatingPairs(A, B, d):
-    if len(A) == 1 or len(B) == 1:
+    if len(A) + len(B) <= 1:
         return [(x, y) for x in A for y in B if dominates(y, x)]
-    if len(A) == 0 or len(B) == 0:
-        return []
     if d == 0:
         return [(x, y) for x in A for y in B if dominates(y, x)]
     leftA = []
