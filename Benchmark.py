@@ -45,5 +45,8 @@ plt.plot([timeit.timeit(
 plt.plot([timeit.timeit(
     "floydWarshall("+str(graphs[x])+")", setup="from FloydWarshall import floydWarshall", number=repeats) for x in range(minrange, maxrange)], label="FloydWarshall")
 
+plt.plot([timeit.timeit(
+    "enforceUniqueness("+str(graphs[x])+","+str(graphs[x])+")", setup="from RWilliamsMinPlus import enforceUniqueness", number=repeats) for x in range(minrange, maxrange)], label="RWilliams")
+
 plt.legend()
 plt.show()

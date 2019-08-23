@@ -6,3 +6,4 @@ https://wiki.epfl.ch/edicpublic/documents/Candidacy%20exam/PR13Charab.pdf DONE
  - linear median-of-medians algorithm
 
 - R.Williams
+ - investigation of complexity of using Python lists instead of numpy arrays and matrices
