@@ -1,7 +1,9 @@
 import math
 
+# This preprocessing runs (both theoretically and in practice) in O(n·d^2·logn)
 
-def enforceUniqueness(A, B):
+
+def preprocessMatrices(A, B):
     n = len(A)
     d = len(A[0])
     # Enforce a unique minimum
@@ -44,23 +46,29 @@ def enforceUniqueness(A, B):
                 else:
                     Bf[k][otherK][i] = rank
 
-    # Everything above this line runs (both theoretically and in practice) in O(n·d^2·logn)
-    '''kMatrix = []
+    return(Af, Bf)
+
+
+def trivialRWilliams(A, B):
+    n = len(A)
+    d = len(A[0])
+    (Af, Bf) = preprocessMatrices(A, B)
+    kMatrix = []
     for i in range(0, n):
         kMatrix.append([])
         for j in range(0, n):
-            kMatrix[i].append(trivialCircuitSolve(Af, Bf, d, i, j))'''
+            kMatrix[i].append(trivialLargeCircuitSolve(Af, Bf, d, i, j))
 
     out = []
-    '''for i in range(0, len(kMatrix)):
+    for i in range(0, len(kMatrix)):
         out.append([])
         for j in range(0, len(kMatrix[i])):
             k = kMatrix[i][j]
-            out[i].append((A[i][k] + B[k][j])//(n+1))'''
+            out[i].append((A[i][k] + B[k][j])//(n+1))
     return out
 
 
-def trivialCircuitSolve(Af, Bf, d, i, j):
+def trivialLargeCircuitSolve(Af, Bf, d, i, j):
     value = ""
     for l in range(0, int(math.log(d))+1):
         out = False
