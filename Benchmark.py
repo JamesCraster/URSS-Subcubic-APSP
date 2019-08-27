@@ -1,8 +1,8 @@
 from MinPlusAPSP import *
 from FloydWarshall import *
 from MPAPSPFastExp import *
-from FastClosure import *
-from TChanAPSP import *
+'''from FastClosure import *
+from TChanAPSP import *'''
 import timeit
 import random
 import matplotlib.pyplot as plt
@@ -15,7 +15,7 @@ def generateGraphOfSize(n):
         for j in range(0, n):
             # It seems that it is a requirement for these algorithms that the distance from any vertex to itself must be zero. This is potentially a bug, since this is not true for all vertices.
             if i != j:
-                graph[i].append(random.randint(0, 10))
+                graph[i].append(random.randint(1, 10))
             else:
                 graph[i].append(0)
     return graph
@@ -24,11 +24,27 @@ def generateGraphOfSize(n):
 # Note the distinction between 0 (edge of no length) and +inf (no edge at all) in these algorithms
 repeats = 1
 minrange = 0
-maxrange = 50
-graphs = [generateGraphOfSize(x) for x in range(1, 120)]
+maxrange = 190
+graphs = [generateGraphOfSize(x) for x in range(1, 200)]
 
-# plt.plot([timeit.timeit(
-#   "minPlusAPSP("+str(graphs[x])+")", setup="from MinPlusAPSP import minPlusAPSP", number=repeats) for x in range(minrange, maxrange)], label="MinPlusAPSP")
+plt.plot([timeit.timeit(
+    "newMinPlus("+str(graphs[x])+","+str(graphs[x])+")", setup="from MinPlus import newMinPlus", number=repeats) for x in range(minrange, maxrange)], label="MinPlus")
+
+'''plt.plot([timeit.timeit(
+    "minPlus("+str(graphs[x])+","+str(graphs[x])+")", setup="from MinPlus import minPlus", number=repeats) for x in range(minrange, maxrange)], label="OldMinPlus")
+
+'''
+plt.plot([timeit.timeit(
+    "TChanMinPlus("+str(graphs[x])+","+str(graphs[x])+")", setup="from TChanMinPlus import TChanMinPlus", number=repeats) for x in range(minrange, maxrange)], label="TChanMinPlus")
+'''
+plt.plot([timeit.timeit(
+    "TChanMinPlus("+str(graphs[x])+","+str(graphs[x])+",2)", setup="from TChanMinPlus import TChanMinPlus", number=repeats) for x in range(minrange, maxrange)], label="TChanMinPlus2")
+
+plt.plot([timeit.timeit(
+    "TChanMinPlus("+str(graphs[x])+","+str(graphs[x])+",3)", setup="from TChanMinPlus import TChanMinPlus", number=repeats) for x in range(minrange, maxrange)], label="TChanMinPlus3")
+
+plt.plot([timeit.timeit(
+    "minPlusAPSP("+str(graphs[x])+")", setup="from MinPlusAPSP import minPlusAPSP", number=repeats) for x in range(minrange, maxrange)], label="MinPlusAPSP")
 
 plt.plot([timeit.timeit(
     "minPlusAPSPFastExp("+str(graphs[x])+")", setup="from MPAPSPFastExp import minPlusAPSPFastExp", number=repeats) for x in range(minrange, maxrange)], label="MinPlusAPSP (Exponent. by squaring)")
@@ -44,6 +60,6 @@ plt.plot([timeit.timeit(
 
 plt.plot([timeit.timeit(
     "floydWarshall("+str(graphs[x])+")", setup="from FloydWarshall import floydWarshall", number=repeats) for x in range(minrange, maxrange)], label="FloydWarshall")
-
+'''
 plt.legend()
 plt.show()

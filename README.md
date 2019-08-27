@@ -13,4 +13,4 @@ A URSS project that aims to implement Ryan Williams' new randomized graph algori
 
 # Dependencies
 
-Matplotlib is required.
+Matplotlib and numpy are required. Written using Python 3.6.8

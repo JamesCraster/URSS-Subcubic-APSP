@@ -3,27 +3,24 @@ import copy
 inf = 1000000
 
 
-def nextPowerOf2(n):
-    if n == 0:
-        return 1
-    if n & (n - 1) == 0:
-        return n
-    while n & (n - 1) > 0:
-        n &= (n - 1)
-    return n << 1
+def nextEven(n):
+    return n + n % 2
 
 
-def padMatrix(X):
-    n = nextPowerOf2(len(X))
-    initLength = len(X)
-    # pad the matrix up to the next power of two
+def padMatrix(Y):
+    X = [i for i in Y]
+    initWidth = len(X[0])
+    initHeight = len(X)
+    width = nextEven(len(X))
+    height = nextEven(len(X[0]))
+    n = max(width, height)
+
     for i in range(0, len(X)):
-        for j in range(0, n-len(X)):
+        for j in range(0, n-initWidth):
             X[i].append(inf)
-    for i in range(initLength, n):
-        X.append([])
-        for j in range(0, n):
-            X[i].append(inf)
+    for i in range(0, n-initHeight):
+        X.append([inf] * n)
+
     for i in range(0, len(X)):
         for j in range(0, len(X[i])):
             if i == j:
@@ -31,18 +28,11 @@ def padMatrix(X):
     return X
 
 
-def unpadMatrix(X, initLength):
-    C = []
-    for i in range(0, initLength):
-        C.append([])
-        for j in range(0, initLength):
-            C[i].append(X[i][j])
-    return C
-
-
-def fastClosure(X):
-    if(len(X) == 1):
+def fastClosure(Y):
+    if(len(Y) == 1):
         return [[0]]
+    initLength = len(Y)
+    X = padMatrix(Y)
     padMatrix(X)
     # divide the matrix into four quadrants
     h = len(X)//2
@@ -61,8 +51,8 @@ def fastClosure(X):
     newMatrixRight = F + H
     for i in range(0, len(newMatrixLeft)):
         newMatrixLeft[i] += newMatrixRight[i]
-    return newMatrixLeft
+    return [r[:initLength] for r in newMatrixLeft[:initLength]]
 
 
 def fastClosureAPSP(A):
-    return unpadMatrix(fastClosure(copy.deepcopy(A)), len(A))
+    return fastClosure(A)

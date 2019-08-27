@@ -1,4 +1,5 @@
 
+import numpy as np
 inf = 1000000
 
 
@@ -11,11 +12,19 @@ def minVal(A, B, i, j):
 # Requirement: number of rows of A == number of columns of B
 
 
+def newMinPlus(A, B):
+    C = np.zeros((len(A), len(B[0])), dtype=int)
+    for i in range(0, len(A)):
+        for j in range(0, len(B[0])):
+            C[i][j] = minVal(A, B, i, j)
+    return C
+
+
 def minPlus(A, B):
     C = []
     for i in range(0, len(A)):
         C.append([minVal(A, B, i, j) for j in range(0, len(B[0]))])
-    return C
+    return np.array(C)
 
 
 def matrixAdd(A, B):

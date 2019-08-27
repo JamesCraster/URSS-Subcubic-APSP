@@ -1,4 +1,6 @@
 import random
+from MinPlus import *
+import numpy as np
 from MinPlusAPSP import *
 from MPAPSPFastExp import *
 from FloydWarshall import *
@@ -21,23 +23,30 @@ def generateGraphOfSize(n):
 
 
 # Note the distinction between 0 (edge of no length) and +inf (no edge at all) in these algorithms
-graphs = [generateGraphOfSize(x) for x in range(1, 20)]
+graphs = [generateGraphOfSize(x) for x in range(1, 100)]
 
 passes = True
 for graph in graphs:
+    TChanMinPlus(graph, graph)
+'''for graph in graphs:
     if(minPlusAPSP(graph) != floydWarshall(graph)[0] or minPlusAPSPFastExp(graph) != minPlusAPSP(graph) or fastClosureAPSP(graph) != minPlusAPSP(graph) or fastClosureAPSPT(graph) != fastClosureAPSP(graph)):
         print(graph)
         print(minPlusAPSP(graph))
         print(fastClosureAPSP(graph))
+        print('minPlus problem')
         passes = False
-        break
     print('graph: ', graph)
     if(len(graph) > 1):
         if(minPlus(graph, graph) != TChanMinPlus(graph, graph)):
             print(minPlus(graph, graph))
             print(TChanMinPlus(graph, graph))
+            print('TChan problems')
             passes = False
-            break
+            break'''
+
+'''for graph in graphs:
+    if(not np.array_equal(minPlus(graph, graph), (oldMinPlus(graph, graph)))):
+        passes = False'''
 
 if passes:
     print("All tests pass")

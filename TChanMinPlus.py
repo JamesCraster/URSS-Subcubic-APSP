@@ -4,6 +4,8 @@ from MinPlus import *
 import copy
 from itertools import *
 
+# O(n^2 op)
+
 
 def splitMatrixHorizontal(A, d):
     out = []
@@ -19,6 +21,8 @@ def splitMatrixHorizontal(A, d):
         out.append(next)
     return out
 
+# O(n^2) op
+
 
 def splitMatrixVertical(A, d):
     out = []
@@ -30,16 +34,29 @@ def splitMatrixVertical(A, d):
     return out
 
 
-def TChanMinPlus(A, B):
-    d = max(math.ceil(0.42 * math.log(len(A))), 1)
+def dim(A):
+    return (len(A), len(A[0]))
+
+
+def TChanMinPlus(A, B, d=None):
+    if(len(A) <= 18 and len(B[0]) <= 18):
+        return minPlus(A, B)
+    print('n ', len(A))
+    if d is None:
+        d = int(max(math.ceil(0.42 * math.log(len(A))), 1))
+    # O(n^2 operations)
     Alist = splitMatrixHorizontal(A, d)
     Blist = splitMatrixVertical(B, d)
     C = []
+    print('Alist', len(Alist))
+    # Runs n/d times
     for i in range(0, len(Alist)):
-        # problem rests with this line
+        # What is the running time of this?
         C.append(distanceProduct(
             Alist[i], Blist[i], len(Alist[i]), d))
-    C = reduce(lambda x, y: matrixAdd(x, y), C)
+    # O(n^3/d) operation
+    print('len(C)', len(C))
+    #C = reduce(lambda x, y: matrixAdd(x, y), C)
     return C
 
 
@@ -51,7 +68,6 @@ def dominates(A, B):
 
 
 def distanceProduct(A, B, n, d):
-    # which (column/row) does k need to iterate over?
     C = []
     for i in range(0, n):
         C += [[10000]*n]
@@ -67,6 +83,8 @@ def distanceProduct(A, B, n, d):
         for b in second:
             for p in range(0, len(b)):
                 b[p] = ('B', b[p])
+        # This line will be run n times overall
+        Xk = []
         Xk = dominatingPairs(first, second, d)
         # extract i and j from Xk
         for a in Xk:
