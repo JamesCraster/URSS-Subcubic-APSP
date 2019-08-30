@@ -24,7 +24,22 @@ def minPlus(A, B):
     C = []
     for i in range(0, len(A)):
         C.append([minVal(A, B, i, j) for j in range(0, len(B[0]))])
-    return np.array(C)
+    return C
+
+
+def argMinPlus(A, B):
+    C = []
+    for i in range(0, len(A)):
+        C.append([])
+        for j in range(0, len(B[0])):
+            minVal = inf
+            minK = inf
+            for k in range(0, len(B)):
+                if(minVal > A[i][k]+B[k][j]):
+                    minVal = A[i][k] + B[k][j]
+                    minK = k
+            C[i].append((minK, minVal))
+    return C
 
 
 def matrixAdd(A, B):

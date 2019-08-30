@@ -1,9 +1,8 @@
+
 import math
 
-# This preprocessing runs (both theoretically and in practice) in O(n·d^2·logn)
 
-
-def preprocessMatrices(A, B):
+def enforceUniqueness(A, B):
     n = len(A)
     d = len(A[0])
     # Enforce a unique minimum
@@ -15,7 +14,6 @@ def preprocessMatrices(A, B):
     for i in range(0, len(B)):
         for j in range(0, len(B[i])):
             B[i][j] = B[i][j] * (len(A)+1)
-
     # Fredman's trick:
     Af = []
     for i in range(0, n):
@@ -33,6 +31,9 @@ def preprocessMatrices(A, B):
             for j in range(0, n):
                 Bf[k][otherK].append(B[otherK][j]-B[k][j])
 
+    print(Af)
+    print(Bf)
+    # Potential bug area:
     # Finish replacement on Af and Bf:
     S = []
     for k in range(0, len(A[0])):
@@ -46,57 +47,49 @@ def preprocessMatrices(A, B):
                 else:
                     Bf[k][otherK][i] = rank
 
-    return(Af, Bf)
-
-
-def trivialRWilliams(A, B):
-    n = len(A)
-    d = len(A[0])
-    (Af, Bf) = preprocessMatrices(A, B)
+    print(Af)
+    print(Bf)
+    # Everything above this line runs (both theoretically and in practice) in O(n·d^2·logn)
     kMatrix = []
     for i in range(0, n):
         kMatrix.append([])
         for j in range(0, n):
-            kMatrix[i].append(trivialLargeCircuitSolve(Af, Bf, d, i, j))
+            kMatrix[i].append(trivialCircuitSolve(Af, Bf, d, i, j))
 
     out = []
     for i in range(0, len(kMatrix)):
         out.append([])
         for j in range(0, len(kMatrix[i])):
             k = kMatrix[i][j]
-            out[i].append((A[i][k] + B[k][j])//(n+1))
-    return out
+            out[i].append((A[i][k] + B[k][j] - k)//(n+1))
+    return kMatrix
 
 
-def trivialLargeCircuitSolve(Af, Bf, d, i, j):
+def trivialCircuitSolve(Af, Bf, d, i, j):
     value = ""
-    for l in range(0, int(math.log(d))+1):
+    bitCount = int(math.log(d)) + 1
+    print('########################', d, i, j)
+    for l in range(0, bitCount):
         out = False
         for k in range(0, d):
             andResult = False
             # remove '0b'
-            binK = bin(k)[2:]
+            binK = bin(k)[2:].zfill(bitCount)
+            print(binK)
             # any index out of range should point to 0.
-            if not(l + 1 > len(binK)) and binK[-(l+1)] == '1':
+            if binK[-(l+1)] == '1':
+                print('tried')
                 andResult = True
                 for otherK in range(0, d):
+                    print(i, k, otherK, j, len(Af), Af, Bf)
                     comparison = Af[i][k][otherK] <= Bf[k][otherK][j]
+                    print('comparison', i, k, otherK, j,
+                          Af[i][k][otherK], Bf[k][otherK][j])
                     andResult = andResult and comparison
             out = out or andResult
         if(out):
             value = "1" + value
         else:
             value = "0" + value
+    print('value', value)
     return int(value, 2)
-
-
-'''def addByDoubling(A, n):
-    if n == 0:
-        return A
-    if n == 1:
-        return A + A
-    if n % 2 == 0:
-        return addByDoubling(A + A, n/2)
-    else:
-        return A + addByDoubling(A + A, (n-1)/2)
-'''

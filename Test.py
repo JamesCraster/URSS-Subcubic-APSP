@@ -1,12 +1,12 @@
 import random
+import copy
 from MinPlus import *
 import numpy as np
 from MinPlusAPSP import *
 from MPAPSPFastExp import *
 from FloydWarshall import *
 from FastClosure import *
-from TChanMinPlus import *
-from TChanAPSP import *
+from RWilliamsMinPlus import *
 import random
 
 
@@ -23,11 +23,16 @@ def generateGraphOfSize(n):
 
 
 # Note the distinction between 0 (edge of no length) and +inf (no edge at all) in these algorithms
-graphs = [generateGraphOfSize(x) for x in range(1, 100)]
+graphs = [generateGraphOfSize(x) for x in range(1, 10)]
 
 passes = True
 for graph in graphs:
-    TChanMinPlus(graph, graph)
+    if(argMinPlus(graph, graph) != enforceUniqueness(graph, graph)):
+        print('graph', graph)
+        print('minPlus', argMinPlus(graph, graph))
+        print('RWilliams', enforceUniqueness(
+            copy.deepcopy(graph), copy.deepcopy(graph)))
+        passes = False
 '''for graph in graphs:
     if(minPlusAPSP(graph) != floydWarshall(graph)[0] or minPlusAPSPFastExp(graph) != minPlusAPSP(graph) or fastClosureAPSP(graph) != minPlusAPSP(graph) or fastClosureAPSPT(graph) != fastClosureAPSP(graph)):
         print(graph)
