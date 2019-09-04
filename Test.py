@@ -27,31 +27,12 @@ graphs = [generateGraphOfSize(x) for x in range(1, 10)]
 
 passes = True
 for graph in graphs:
-    if(argMinPlus(graph, graph) != enforceUniqueness(graph, graph)):
+    if(argMinPlus(graph, graph) != enforceUniqueness(copy.deepcopy(graph), copy.deepcopy(graph))):
         print('graph', graph)
         print('minPlus', argMinPlus(graph, graph))
         print('RWilliams', enforceUniqueness(
             copy.deepcopy(graph), copy.deepcopy(graph)))
         passes = False
-'''for graph in graphs:
-    if(minPlusAPSP(graph) != floydWarshall(graph)[0] or minPlusAPSPFastExp(graph) != minPlusAPSP(graph) or fastClosureAPSP(graph) != minPlusAPSP(graph) or fastClosureAPSPT(graph) != fastClosureAPSP(graph)):
-        print(graph)
-        print(minPlusAPSP(graph))
-        print(fastClosureAPSP(graph))
-        print('minPlus problem')
-        passes = False
-    print('graph: ', graph)
-    if(len(graph) > 1):
-        if(minPlus(graph, graph) != TChanMinPlus(graph, graph)):
-            print(minPlus(graph, graph))
-            print(TChanMinPlus(graph, graph))
-            print('TChan problems')
-            passes = False
-            break'''
-
-'''for graph in graphs:
-    if(not np.array_equal(minPlus(graph, graph), (oldMinPlus(graph, graph)))):
-        passes = False'''
 
 if passes:
     print("All tests pass")

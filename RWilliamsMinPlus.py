@@ -14,6 +14,8 @@ def enforceUniqueness(A, B):
     for i in range(0, len(B)):
         for j in range(0, len(B[i])):
             B[i][j] = B[i][j] * (len(A)+1)
+    print(A)
+    print(B)
     # Fredman's trick:
     Af = []
     for i in range(0, n):
@@ -39,13 +41,14 @@ def enforceUniqueness(A, B):
     for k in range(0, len(A[0])):
         S.append([])
         for otherK in range(0, len(A[0])):
-            new = sorted([(Af[i][k][otherK], i, 'A')
-                          for i in range(0, n)] + [(Bf[k][otherK][i], i, 'B') for i in range(0, n)])
-            for rank, (value, i, parentList) in enumerate(new):
+            new = sorted([(Af[i][k][otherK], 'A', i)
+                          for i in range(0, n)] + [(Bf[k][otherK][i], 'B', i) for i in range(0, n)])
+            print(new, k, otherK)
+            for rank, (value, parentList, index) in enumerate(new):
                 if parentList == 'A':
-                    Af[i][k][otherK] = rank
+                    Af[index][k][otherK] = rank
                 else:
-                    Bf[k][otherK][i] = rank
+                    Bf[k][otherK][index] = rank
 
     print(Af)
     print(Bf)
@@ -86,7 +89,7 @@ def trivialCircuitSolve(Af, Bf, d, i, j):
                     print('comparison', i, k, otherK, j,
                           Af[i][k][otherK], Bf[k][otherK][j])
                     andResult = andResult and comparison
-            out = out or andResult
+            out = out ^ andResult
         if(out):
             value = "1" + value
         else:

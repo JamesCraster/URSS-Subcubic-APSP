@@ -5,6 +5,39 @@ import copy
 from itertools import *
 import random
 
+
+def quickselect_median(l, d, pivot_fn=random.choice):
+    if len(l) % 2 == 1:
+        return quickselect(l, len(l) / 2, d, pivot_fn)
+    else:
+        return quickselect(l, len(l) / 2 - 1, d, pivot_fn)
+
+
+def quickselect(l, k, d, pivot_fn):
+    """
+    Select the kth element in l (0 based)
+    :param l: List of numerics
+    :param k: Index
+    :param pivot_fn: Function to choose a pivot, defaults to random.choice
+    :return: The kth element of l
+    """
+    if len(l) == 1:
+        assert k == 0
+        return l[0]
+
+    pivot = pivot_fn(l)
+
+    lows = [el for el in l if el[d-1][1]['val'] < pivot[d-1][1]['val']]
+    highs = [el for el in l if el[d-1][1]['val'] > pivot[d-1][1]['val']]
+    pivots = [el for el in l if el[d-1][1]['val'] == pivot[d-1][1]['val']]
+
+    if k < len(lows):
+        return quickselect(lows, k, d, pivot_fn)
+    elif k < len(lows) + len(pivots):
+        # We got lucky and guessed the median
+        return pivots[0]
+    else:
+        return quickselect(highs, k - len(lows) - len(pivots), d,  pivot_fn)
 # O(n^2 op)
 
 
@@ -101,7 +134,7 @@ def distanceProduct(A, B, n, d):
 # It seems the revised analysis O(n^1+epsilon) is worse than O(n^3 / log(n)) for small values.
 
 
-def dominatingPairs(A, B, d):
+def dominatingPairs(A, B, d, sortedD=False):
     if len(A) + len(B) <= 1:
         return []
     if d == 0:
@@ -114,7 +147,11 @@ def dominatingPairs(A, B, d):
     leftB = []
     rightA = []
     rightB = []
-    S = sorted(A+B, key=lambda x: x[d-1][1]['val'])
+    #median = quickselect_median(A+B, d)
+    # if not sortedD:
+    #   S = sorted(A+B, key=lambda x: x[d-1][1]['val'])
+    # else:
+    S = A+B
     # how splitting works: elements equal to the median before the median are put into left
     # elements equal to the median after the median, or at the median itself, are put into right
     for i in range(0, len(S)):
@@ -129,8 +166,8 @@ def dominatingPairs(A, B, d):
             else:
                 rightB.append(S[i])
 
-    return dominatingPairs(leftA, leftB, d) + dominatingPairs(rightA, rightB, d) \
-        + dominatingPairs(leftA, rightB, d-1)
+    return dominatingPairs(leftA, leftB, d, True) + dominatingPairs(rightA, rightB, d, True) \
+        + dominatingPairs(leftA, rightB, d-1, False)
 
 
 def generateGraphOfSize(n):

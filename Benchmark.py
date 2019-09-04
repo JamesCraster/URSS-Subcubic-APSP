@@ -1,4 +1,4 @@
-'''from MinPlusAPSP import *
+from MinPlusAPSP import *
 from FloydWarshall import *
 from MPAPSPFastExp import *
 from FastClosure import *
@@ -7,7 +7,7 @@ from TChanMinPlus import *
 import timeit
 import random
 import matplotlib.pyplot as plt
-'''
+
 
 from TChanMinPlus import *
 
@@ -27,29 +27,31 @@ def generateGraphOfSize(n):
 
 # Note the distinction between 0 (edge of no length) and +inf (no edge at all) in these algorithms
 repeats = 1
-graphs = [generateGraphOfSize(x) for x in range(200, 201, 10)]
+graphs = [generateGraphOfSize(x) for x in range(2, 100, 10)]
 
 # plt.plot([timeit.timeit(
 #   "newMinPlus("+str(graphs[x])+","+str(graphs[x])+")", setup="from MinPlus import newMinPlus", number=repeats) for x in range(0, len(graphs))], label="MinPlus")
-TChanMinPlus(graphs[0], graphs[0])
+# TChanMinPlus(graphs[0], graphs[0])
+
 '''print(timeit.timeit("minPlus("+str(graphs[0])+","+str(
     graphs[0])+")", setup="from MinPlus import minPlus", number=repeats))
 
 '''
-# plt.plot([timeit.timeit(
-#   "minPlus("+str(graphs[x])+","+str(graphs[x])+")", setup="from MinPlus import minPlus", number=repeats) for x in range(0, len(graphs))], label="OldMinPlus")
+plt.plot([timeit.timeit(
+    "minPlus("+str(graphs[x])+","+str(graphs[x])+")", setup="from MinPlus import minPlus", number=repeats) for x in range(0, len(graphs))], label="OldMinPlus")
 
 # print(timeit.timeit(
 # "TChanMinPlus("+str(graphs[0])+","+str(graphs[0])+")", setup="from TChanMinPlus import TChanMinPlus", number=repeats))
 
 # plt.plot([timeit.timeit(
 #   "TChanMinPlus("+str(graphs[x])+","+str(graphs[x])+")", setup="from TChanMinPlus import TChanMinPlus", number=repeats) for x in range(0, len(graphs))], label="TChanMinPlus")
-'''
-plt.plot([timeit.timeit(
-    "TChanMinPlus("+str(graphs[x])+","+str(graphs[x])+",2)", setup="from TChanMinPlus import TChanMinPlus", number=repeats) for x in range(minrange, maxrange)], label="TChanMinPlus2")
 
 plt.plot([timeit.timeit(
-    "TChanMinPlus("+str(graphs[x])+","+str(graphs[x])+",3)", setup="from TChanMinPlus import TChanMinPlus", number=repeats) for x in range(0, len(graphs))], label="TChanMinPlus3")
+    "TChanMinPlus("+str(graphs[x])+","+str(graphs[x])+")", setup="from TChanMinPlus import TChanMinPlus", number=repeats) for x in range(0, len(graphs))], label="TChanMinPlus2")
+
+'''
+plt.plot([timeit.timeit(
+    "TChanMinPlus("+str(graphs[x])+","+str(graphs[x])+")", setup="from TChanMinPlus import TChanMinPlus", number=repeats) for x in range(0, len(graphs))], label="TChanMinPlus3")
 
 plt.plot([timeit.timeit(
     "minPlusAPSP("+str(graphs[x])+")", setup="from MinPlusAPSP import minPlusAPSP", number=repeats) for x in range(minrange, maxrange)], label="MinPlusAPSP")
@@ -69,6 +71,6 @@ plt.plot([timeit.timeit(
 plt.plot([timeit.timeit(
     "floydWarshall("+str(graphs[x])+")", setup="from FloydWarshall import floydWarshall", number=repeats) for x in range(minrange, maxrange)], label="FloydWarshall")
 '''
-'''plt.legend()
+
+plt.legend()
 plt.show()
-'''

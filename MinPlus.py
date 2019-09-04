@@ -38,7 +38,7 @@ def argMinPlus(A, B):
                 if(minVal > A[i][k]+B[k][j]):
                     minVal = A[i][k] + B[k][j]
                     minK = k
-            C[i].append((minK, minVal))
+            C[i].append(minK)
     return C
 
 
