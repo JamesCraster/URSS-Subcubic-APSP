@@ -18,8 +18,8 @@ matrices = [(generateMatrixOfSize(x), generateMatrixOfSize(x))
 
 passes = True
 for matrix in matrices:
-    '''if(strassen(matrix[0], matrix[1]) != naive(matrix[0], matrix[1])):
-        passes = False'''
+    if(np.array_equal(strassen(matrix[0], matrix[1]), naive(matrix[0], matrix[1]))):
+        passes = False
 
 if passes:
     print("All tests pass")
@@ -36,8 +36,8 @@ plt.plot([timeit.timeit(
 plt.plot([timeit.timeit(
     "naive(matrices[x][0], matrices[x][1])",  globals=globals(), number=repeats) for x in range(minrange, maxrange)], label="Naive")
 
-'''plt.plot([timeit.timeit(
-    "strassen("+str(matrices[x][0])+","+str(matrices[x][1])+")", setup="from MatrixAlgorithms import strassen", number=repeats) for x in range(minrange, maxrange)], label="Strassen")'''
+plt.plot([timeit.timeit(
+    "strassen(matrices[x][0], matrices[x][1])", globals=globals(), number=repeats) for x in range(minrange, maxrange)], label="Strassen")
 
 plt.legend()
 plt.show()

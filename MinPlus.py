@@ -1,5 +1,3 @@
-
-import numpy as np
 inf = 1000000
 
 
@@ -9,18 +7,9 @@ def minVal(A, B, i, j):
         minVal = min(A[i][k] + B[k][j], minVal)
     return minVal
 
-# Requirement: number of rows of A == number of columns of B
-
-
-def newMinPlus(A, B):
-    C = np.zeros((len(A), len(B[0])), dtype=int)
-    for i in range(0, len(A)):
-        for j in range(0, len(B[0])):
-            C[i][j] = minVal(A, B, i, j)
-    return C
-
 
 def minPlus(A, B):
+    """ The only requirement of min-plus multiplication is that the number of rows of A == number of columns of B """
     C = []
     for i in range(0, len(A)):
         C.append([minVal(A, B, i, j) for j in range(0, len(B[0]))])
@@ -28,6 +17,7 @@ def minPlus(A, B):
 
 
 def argMinPlus(A, B):
+    """ Returns the matrix of k values st C[i][j] = A[i][k] + B[k][j], that is, those k values producing the minimum values"""
     C = []
     for i in range(0, len(A)):
         C.append([])
@@ -43,6 +33,7 @@ def argMinPlus(A, B):
 
 
 def matrixAdd(A, B):
+    """ In tropical algebra, adding matrices is equivalent to taking the elementwise minimum """
     for i in range(0, len(A)):
         for j in range(0, len(B)):
             A[i][j] = min(A[i][j], B[i][j])

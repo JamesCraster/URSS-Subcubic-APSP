@@ -21,7 +21,7 @@ https://www.mpi-inf.mpg.de/departments/algorithms-complexity/teaching/summer16/p
 Useful conference:
 https://simons.berkeley.edu/workshops/schedule/1821
 
-https://simons.berkeley.edu/talks/fabrizo-grandoni-2015-12-02 (discussion of subcubic equivalence)
+Presentation on subcubic equivalence: https://simons.berkeley.edu/talks/fabrizo-grandoni-2015-12-02 
 
 Paper on T.M Chan's algorithm:
 http://www.eecs.tufts.edu/~aloupis/comp260/lectures/chan-2008.pdf
@@ -30,4 +30,4 @@ Useful discussion of the polynomial method: https://people.csail.mit.edu/rrw/fst
 
 # Dependencies
 
-Matplotlib and numpy are required. Written using Python 3.6.8
+Matplotlib and numpy (for matrix algorithms) are required. Written using Python 3.6.8

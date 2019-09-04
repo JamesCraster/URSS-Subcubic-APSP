@@ -44,7 +44,7 @@ def quickselect(l, k, d, pivot_fn):
 def splitMatrixHorizontal(A, d):
     out = []
     next = []
-    for x in range(0, math.ceil(len(A[0])/d)):
+    for x in range(0, int(math.ceil(len(A[0])/d))):
         next = []
         for y in range(0, len(A)):
             row = A[y][x*d:min(math.ceil(x*d+d), len(A))]
@@ -186,7 +186,4 @@ def generateGraphOfSize(n):
 # Note the distinction between 0 (edge of no length) and +inf (no edge at all) in these algorithms
 repeats = 1
 graphs = [generateGraphOfSize(x) for x in range(200, 201, 10)]
-
-# plt.plot([timeit.timeit(
-#   "newMinPlus("+str(graphs[x])+","+str(graphs[x])+")", setup="from MinPlus import newMinPlus", number=repeats) for x in range(0, len(graphs))], label="MinPlus")
 TChanMinPlus(graphs[0], graphs[0])

@@ -1,4 +1,5 @@
-'''
+# -*- coding: utf-8 -*-
+"""
 T.Chan's algorithm:
 The reduction to min-plus matrix multiplication:
 
@@ -32,7 +33,7 @@ NB: when it comes to sorting, finding the median in O(nlogn) is sufficient, beca
 for all epsilon > 0.
 Finding the median in linear time would require a linear-time sweep to partition elements into left, middle, right,
 and then taking left + some middle, right + rest of middle.
-'''
+"""
 
 from TChanMinPlus import TChanMinPlus
 from MinPlus import matrixAdd

@@ -28,10 +28,9 @@ def floydWarshall(graph):
                     next[i][j] = next[i][k]
     return (dist, next)
 
-# Path reconstruction(Using shortest path tree)
-
 
 def reconstructPath(u, v, next):
+    """ path reconstruction using shortest path tree """
     if (next[u][v] == -1):
         return []
     path = [u]
