@@ -20,6 +20,7 @@ https://www.mpi-inf.mpg.de/departments/algorithms-complexity/teaching/summer16/p
 
 Useful conference:
 https://simons.berkeley.edu/workshops/schedule/1821
+
 https://simons.berkeley.edu/talks/fabrizo-grandoni-2015-12-02 (discussion of subcubic equivalence)
 
 Paper on T.M Chan's algorithm:

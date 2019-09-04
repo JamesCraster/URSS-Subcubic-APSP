@@ -1,9 +1,0 @@
-- understand the reduction from APSP to min-plus product such that there exists T(n) algo for min-plus ==> there exists T(n) algo for APSP, 'subcubic equivalence' -> gather the necessary papers
-https://wiki.epfl.ch/edicpublic/documents/Candidacy%20exam/PR13Charab.pdf DONE
-
-- finish T.Chan's algorithm
- - proof of running time
- - linear median-of-medians algorithm
-
-- R.Williams
- - investigation of complexity of using Python lists instead of numpy arrays and matrices
