@@ -1,9 +1,10 @@
 
 import math
 import copy
+import random
 
 
-def enforceUniqueness(A, B):
+def RWilliamsMinPlus(A, B):
     n = len(A)
     d = len(A[0])
     # Enforce a unique minimum
@@ -39,7 +40,6 @@ def enforceUniqueness(A, B):
         for otherK in range(0, len(A[0])):
             new = sorted([(Af[i][k][otherK], 'A', i)
                           for i in range(0, n)] + [(Bf[k][otherK][i], 'B', i) for i in range(0, n)])
-            print(new, k, otherK)
             for rank, (value, parentList, index) in enumerate(new):
                 if parentList == 'A':
                     Af[index][k][otherK] = rank
@@ -52,7 +52,7 @@ def enforceUniqueness(A, B):
     for i in range(0, n):
         kMatrix.append([])
         for j in range(0, n):
-            kMatrix[i].append(trivialCircuitSolve(Af, Bf, d, i, j))
+            kMatrix[i].append(circuitSolve(Af, Bf, d, i, j))
 
     out = []
     for i in range(0, len(kMatrix)):
@@ -66,33 +66,65 @@ def enforceUniqueness(A, B):
 def trivialCircuitSolve(Af, Bf, d, i, j):
     value = ""
     bitCount = int(math.log2(d)) + 1
-    print('########################', d, i, j)
     for l in range(0, bitCount):
         out = False
         for k in range(0, d):
             andResult = False
-            # remove '0b'
             binK = bin(k)[2:].zfill(bitCount)
-            # print(binK)
             # any index out of range should point to 0.
             if binK[-(l+1)] == '1':
-                # print('tried')
                 andResult = True
                 for otherK in range(0, d):
-                    print(i, k, otherK, j)
                     comparison = Af[i][k][otherK] <= Bf[k][otherK][j]
-                    print('comparison', i, k, otherK, j,
-                          Af[i][k][otherK], Bf[k][otherK][j])
                     andResult = andResult and comparison
+            # Note here we use XOR
             out = out ^ andResult
         if(out):
             value = "1" + value
         else:
             value = "0" + value
-    print('value', value)
     return int(value, 2)
+
+
+def circuitSolve(Af, Bf, d, i, j):
+    value = ""
+    bitCount = int(math.log2(d)) + 1
+    for l in range(0, bitCount):
+        out = False
+        for k in range(0, d):
+            andResult = False
+            binK = bin(k)[2:].zfill(bitCount)
+            # any index out of range should point to 0.
+            if binK[-(l+1)] == '1':
+                andResult = RazborovSmolensky(
+                    [Af[i][k][otherK] <= Bf[k][otherK][j] for otherK in range(0, d)])
+
+            # Note here we use XOR
+            out = out ^ andResult
+        if(out):
+            value = "1" + value
+        else:
+            value = "0" + value
+    return int(value, 2)
+
+
+def RazborovSmolensky(atoms):
+    e = int(math.log2(len(atoms))) + 30
+    coefficients = []
+    for i in range(0, e):
+        coefficients.append([])
+        for j in range(0, len(atoms)):
+            coefficients[i].append(random.getrandbits(1))
+
+    out = True
+    for i in range(0, e):
+        innerResult = False
+        for j in range(0, len(atoms)):
+            innerResult = innerResult ^ (coefficients[i][j] * (not atoms[j]))
+        out = out and (not innerResult)
+    return out
 
 
 A = [[0, 8, 7, 7, 10], [10, 0, 3, 8, 6], [
     3, 2, 0, 10, 4], [0, 8, 8, 0, 10], [10, 0, 8, 8, 0]]
-enforceUniqueness(copy.deepcopy(A), copy.deepcopy(A))
+RWilliamsMinPlus(copy.deepcopy(A), copy.deepcopy(A))
