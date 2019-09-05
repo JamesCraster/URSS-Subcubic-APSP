@@ -1,5 +1,6 @@
 
 import math
+import copy
 
 
 def enforceUniqueness(A, B):
@@ -14,8 +15,6 @@ def enforceUniqueness(A, B):
     for i in range(0, len(B)):
         for j in range(0, len(B[i])):
             B[i][j] = B[i][j] * (len(A)+1)
-    print(A)
-    print(B)
     # Fredman's trick:
     Af = []
     for i in range(0, n):
@@ -33,9 +32,6 @@ def enforceUniqueness(A, B):
             for j in range(0, n):
                 Bf[k][otherK].append(B[otherK][j]-B[k][j])
 
-    print(Af)
-    print(Bf)
-    # Potential bug area:
     # Finish replacement on Af and Bf:
     S = []
     for k in range(0, len(A[0])):
@@ -50,9 +46,8 @@ def enforceUniqueness(A, B):
                 else:
                     Bf[k][otherK][index] = rank
 
-    print(Af)
-    print(Bf)
     # Everything above this line runs (both theoretically and in practice) in O(n·d^2·logn)
+    # Here we begin to use circuits to solve our problem
     kMatrix = []
     for i in range(0, n):
         kMatrix.append([])
@@ -65,12 +60,12 @@ def enforceUniqueness(A, B):
         for j in range(0, len(kMatrix[i])):
             k = kMatrix[i][j]
             out[i].append((A[i][k] + B[k][j] - k)//(n+1))
-    return kMatrix
+    return out
 
 
 def trivialCircuitSolve(Af, Bf, d, i, j):
     value = ""
-    bitCount = int(math.log(d)) + 1
+    bitCount = int(math.log2(d)) + 1
     print('########################', d, i, j)
     for l in range(0, bitCount):
         out = False
@@ -78,13 +73,13 @@ def trivialCircuitSolve(Af, Bf, d, i, j):
             andResult = False
             # remove '0b'
             binK = bin(k)[2:].zfill(bitCount)
-            print(binK)
+            # print(binK)
             # any index out of range should point to 0.
             if binK[-(l+1)] == '1':
-                print('tried')
+                # print('tried')
                 andResult = True
                 for otherK in range(0, d):
-                    print(i, k, otherK, j, len(Af), Af, Bf)
+                    print(i, k, otherK, j)
                     comparison = Af[i][k][otherK] <= Bf[k][otherK][j]
                     print('comparison', i, k, otherK, j,
                           Af[i][k][otherK], Bf[k][otherK][j])
@@ -96,3 +91,8 @@ def trivialCircuitSolve(Af, Bf, d, i, j):
             value = "0" + value
     print('value', value)
     return int(value, 2)
+
+
+A = [[0, 8, 7, 7, 10], [10, 0, 3, 8, 6], [
+    3, 2, 0, 10, 4], [0, 8, 8, 0, 10], [10, 0, 8, 8, 0]]
+enforceUniqueness(copy.deepcopy(A), copy.deepcopy(A))

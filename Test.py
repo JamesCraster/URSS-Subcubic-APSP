@@ -27,7 +27,7 @@ graphs = [generateGraphOfSize(x) for x in range(1, 10)]
 
 passes = True
 for graph in graphs:
-    if(argMinPlus(graph, graph) != enforceUniqueness(copy.deepcopy(graph), copy.deepcopy(graph))):
+    if(minPlus(graph, graph) != enforceUniqueness(copy.deepcopy(graph), copy.deepcopy(graph))):
         print('graph', graph)
         print('minPlus', argMinPlus(graph, graph))
         print('RWilliams', enforceUniqueness(
