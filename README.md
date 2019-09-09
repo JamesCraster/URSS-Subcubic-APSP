@@ -28,6 +28,8 @@ http://www.eecs.tufts.edu/~aloupis/comp260/lectures/chan-2008.pdf
 
 Useful discussion of the polynomial method: https://people.csail.mit.edu/rrw/fsttcs-survey.pdf
 
+Lecture series by R.Williams: https://www.youtube.com/watch?v=adJvi7tL-qM&t=2835s, https://www.youtube.com/watch?v=1S8fKlR28Go&t=3s
+
 # Dependencies
 
 Matplotlib and numpy (for matrix algorithms) are required. Written using Python 3.6.8

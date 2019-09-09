@@ -7,6 +7,7 @@ from MPAPSPFastExp import *
 from FloydWarshall import *
 from FastClosure import *
 from RWilliamsMinPlus import *
+from RWilliamsAPSP import *
 import random
 
 
@@ -27,13 +28,17 @@ graphs = [generateGraphOfSize(x) for x in range(1, 10)]
 
 passes = True
 for graph in graphs:
-    if(minPlus(graph, graph) != RWilliamsMinPlus(copy.deepcopy(graph), copy.deepcopy(graph))):
+    '''if(minPlus(graph, graph) != RWilliamsMinPlus(copy.deepcopy(graph), copy.deepcopy(graph))):
         print('graph', graph)
         print('minPlus', argMinPlus(graph, graph))
         print('RWilliams', RWilliamsMinPlus(
             copy.deepcopy(graph), copy.deepcopy(graph)))
+        passes = False'''
+    if(floydWarshall(graph)[0] != fastClosureAPSPR(copy.deepcopy(graph))):
+        print('graph', graph)
+        print('floydWarshall', floydWarshall(graph))
+        print('RWilliams', fastClosureAPSPR(graph))
         passes = False
-
 if passes:
     print("All tests pass")
 else:

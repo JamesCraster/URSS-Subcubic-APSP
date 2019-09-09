@@ -38,10 +38,10 @@ def quickselect(l, k, d, pivot_fn):
         return pivots[0]
     else:
         return quickselect(highs, k - len(lows) - len(pivots), d,  pivot_fn)
-# O(n^2 op)
 
 
 def splitMatrixHorizontal(A, d):
+    # O(n^2) op
     out = []
     next = []
     for x in range(0, int(math.ceil(len(A[0])/d))):
@@ -55,10 +55,9 @@ def splitMatrixHorizontal(A, d):
         out.append(next)
     return out
 
-# O(n^2) op
-
 
 def splitMatrixVertical(A, d):
+    # O(n^2) op
     out = []
     for x in range(0, math.ceil(len(A)/d)):
         next = A[x*d:min(math.ceil(x*d+d), len(A))]
@@ -73,9 +72,6 @@ def dim(A):
 
 
 def TChanMinPlus(A, B, d=None):
-    if(len(A) <= 18 and len(B[0]) <= 18):
-        return minPlus(A, B)
-    print('n ', len(A))
     if d is None:
         d = int(max(math.ceil(0.42 * math.log(len(A))), 1))
     # O(n^2 operations)
@@ -85,7 +81,6 @@ def TChanMinPlus(A, B, d=None):
     print('Alist', len(Alist))
     # Runs n/d times
     for i in range(0, len(Alist)):
-        # What is the running time of this?
         C.append(distanceProduct(
             Alist[i], Blist[i], len(Alist[i]), d))
     # O(n^3/d) operation

@@ -40,10 +40,7 @@ plt.plot([timeit.timeit(
     "floydWarshall("+str(graphs[x])+")", setup="from FloydWarshall import floydWarshall", number=repeats) for x in range(minrange, maxrange)], label="FloydWarshall")
 
 plt.plot([timeit.timeit(
-    "preprocessMatrices("+str(graphs[x])+","+str(graphs[x])+")", setup="from RWilliamsMinPlus import preprocessMatrices", number=repeats) for x in range(minrange, maxrange)], label="RWilliams")
-
-plt.plot([timeit.timeit(
-    "trivialRWilliams("+str(graphs[x])+","+str(graphs[x])+")", setup="from RWilliamsMinPlus import trivialRWilliams", number=repeats) for x in range(minrange, maxrange)], label="RWilliams")
+    "RWilliamsMinPlus("+str(graphs[x])+","+str(graphs[x])+")", setup="from RWilliamsMinPlus import RWilliamsMinPlus", number=repeats) for x in range(minrange, maxrange)], label="RWilliams")
 
 plt.legend()
 plt.show()
