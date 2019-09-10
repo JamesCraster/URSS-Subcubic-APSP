@@ -21,14 +21,16 @@ https://www.mpi-inf.mpg.de/departments/algorithms-complexity/teaching/summer16/p
 Useful conference:
 https://simons.berkeley.edu/workshops/schedule/1821
 
-Presentation on subcubic equivalence: https://simons.berkeley.edu/talks/fabrizo-grandoni-2015-12-02 
+A presentation on subcubic equivalence: https://simons.berkeley.edu/talks/fabrizo-grandoni-2015-12-02 
 
 Paper on T.M Chan's algorithm:
 http://www.eecs.tufts.edu/~aloupis/comp260/lectures/chan-2008.pdf
 
-Useful discussion of the polynomial method: https://people.csail.mit.edu/rrw/fsttcs-survey.pdf
+(As an aside, an interesting algorithm which outperforms BFS-n-times on unweighted, undirected graphs: http://ce.sharif.ac.ir/~ghodsi/archive/d-papers/ACM%20SODA/2006/All-Pairs%20Shortest%20Paths%20for%20Unweighted%20Undirected%20Graphs%20in%20o(mn)%20Time.pdf)
 
-Lecture series by R.Williams: https://www.youtube.com/watch?v=adJvi7tL-qM&t=2835s, https://www.youtube.com/watch?v=1S8fKlR28Go&t=3s
+Useful discussion of the polynomial method: https://people.csail.mit.edu/rrw/fsttcs-survey.pdf
+Intro to circuit complexity: https://simons.berkeley.edu/events/openlectures2015-fall-2
+Lecture series by R.Williams: https://www.youtube.com/watch?v=adJvi7tL-qM&t=2835s
 
 # Dependencies
 
