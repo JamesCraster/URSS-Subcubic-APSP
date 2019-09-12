@@ -145,7 +145,7 @@ def circuitSolve(Af, Bf, d, i, j):
             # any index out of range should point to 0.
             if binK[-(l+1)] == '1':
                 andResult = RazborovSmolensky(
-                    [Af[i][k][otherK] <= Bf[k][otherK][j] for otherK in range(0, d)])
+                    [leq(Af[i][k][otherK], Bf[k][otherK][j]) for otherK in range(0, d)])
 
             # Note here we use XOR
             out = out ^ andResult
@@ -172,10 +172,34 @@ def RazborovSmolensky(atoms):
         out = out and (not innerResult)
     return out
 
+# circuits for equals, less than, etc.
 
-def leq(a, b):
-    # compare entries of a and b as bit strings
-    pass
+
+def eq(a, b, t):
+    result = True
+    for i in range(0, t):
+        if not (1 ^ int(a[i]) ^ int(b[i])):
+            result = False
+    return result
+
+
+def less(a, b, t):
+    result = False
+    for i in range(0, t):
+        intermediateResult = True
+        for j in range(0, i):
+            if not (1 ^ int(a[j]) ^ int(b[j])):
+                intermediateResult = False
+        result |= (1 ^ int(a[i])) and int(b[i]) and intermediateResult
+    return result
+
+
+def leq(A, B):
+    # convert a and b into bit strings
+    t = int(max(math.ceil(math.log2(A) + 1), math.ceil(math.log2(B))) + 1)
+    a = bin(A)[2:].zfill(t)
+    b = bin(B)[2:].zfill(t)
+    return eq(a, b, t) ^ less(a, b, t)
 
 
 A = [[0, 8, 7, 7, 10], [10, 0, 3, 8, 6], [
