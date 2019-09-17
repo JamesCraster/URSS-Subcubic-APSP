@@ -9,6 +9,7 @@ A URSS project into Ryan Williams' new randomized graph algorithm, supervised by
 - Orthogonal vectors, trivial algorithm (complete) - takes O(n<sup>2</sup>d)
 - Orthogonal vectors, randomized using circuits, Razborov-Smolensky, fast matrix multiplication - takes n<sup>2-1/O(log d)</sup>
 - APSP by repeated application of min plus multiplication (O(n^4) by a naive number of applications, O(n^3 log n) using exponentiation by squaring)
+- Polynomial-time reduction from APSP to min-plus multiplication (Fast closure) in O(n^3) 
 - Timothy Chan's 2006 method to solve APSP in O(n^3/log(n)) time (tested, benchmarked)
 - Naive matrix multiplication (O(n^3)) and Strassen's method (O(n^~2.8))
 - APSP, R.Williams method (currently being implemented.)
