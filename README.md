@@ -1,6 +1,6 @@
 # URSS-Subcubic-APSP
 
-A URSS project into Ryan Williams' new randomized graph algorithm, supervised by Professor Dmitry Chistikov; paper: https://arxiv.org/pdf/1312.6680.pdf
+A URSS project into Ryan Williams' new randomized graph algorithm, supervised by Dmitry Chistikov; paper: https://arxiv.org/pdf/1312.6680.pdf
 
 
 # Algorithms
